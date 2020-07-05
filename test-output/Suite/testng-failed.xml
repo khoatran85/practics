@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="Failed suite [Suite]">
+  <test thread-count="5" name="Run on CHROME(failed)">
+    <parameter name="browser" value="chrome"/>
+    <parameter name="url" value="https://www.jqueryscript.net/demo/jQuery-Dynamic-Data-Grid-Plugin-appendGrid/"/>
+    <classes>
+      <class name="dataTable.DataTable01">
+        <methods>
+          <include name="AfterClass"/>
+          <include name="BeforeClass"/>
+          <include name="DataTable01_LoadData_TotalColumn"/>
+        </methods>
+      </class> <!-- dataTable.DataTable01 -->
+    </classes>
+  </test> <!-- Run on CHROME(failed) -->
+</suite> <!-- Failed suite [Suite] -->

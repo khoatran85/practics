@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
+	<classpathentry kind="src" path="testcases"/>
+	<classpathentry kind="src" path="testdata"/>
+	<classpathentry kind="src" path="actions"/>
+	<classpathentry kind="src" path="interface"/>
+	<classpathentry kind="src" path="source"/>
+	<classpathentry kind="con" path="org.testng.TESTNG_CONTAINER"/>
+	<classpathentry kind="lib" path="libraries/selenium-server-standalone-3.141.59.jar"/>
+	<classpathentry kind="lib" path="libraries/webdrivermanager-4.0.0-fat.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

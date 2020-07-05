@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<suite name="Practics" parallel="false">
+
+  <test name="Run on Chrome">
+  <parameter name = "browser" value = "chrome"/>
+  <parameter name = "url" value = "https://www.jqueryscript.net/demo/CRUD-Data-Grid-Plugin-jQuery-Quickgrid/" />
+    <classes>
+      <class name="dataTable.DataTable01"/>
+    </classes>	
+  </test>
+
+
+<!--   <test name="Run on Firefox"> -->
+<!--     <parameter name = "browser" value = "firefox"/> -->
+<!--     <classes> -->
+<!--       <class name="com.bankguru.login.Login_03_Apply_WebDriverManager_MultiBrowser"/> -->
+<!--     </classes> -->
+<!--   </test> -->
+  
+</suite>
