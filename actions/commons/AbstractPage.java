@@ -55,7 +55,7 @@ public abstract class AbstractPage {
 		driver.switchTo().alert().dismiss();
 	}
 
-	public void senkeyToAlear(WebDriver driver, String value) {
+	public void sendkeyToAlear(WebDriver driver, String value) {
 		driver.switchTo().alert().sendKeys(value);
 	}
 
@@ -111,6 +111,9 @@ public abstract class AbstractPage {
 
 	public WebElement findElementByXpath(WebDriver driver, String locator) {
 		return driver.findElement(byXpath(locator));
+	}
+	public WebElement findElementByXpath(WebDriver driver, String locator, String...values) {
+		return driver.findElement(byXpath(castToObject(locator, values)));
 	}
 
 	public String castToObject(String locator, String... values) {
@@ -197,6 +200,9 @@ public abstract class AbstractPage {
 
 	public int countElementNumber(WebDriver driver, String locator) {
 		return findElementsByXpath(driver, locator).size();
+	}
+	public int countElementNumber(WebDriver driver, String locator, String...values) {
+		return findElementsByXpath(driver, castToObject(locator, values)).size();
 	}
 
 	public void checkToCheckbox(WebDriver driver, String locator) {

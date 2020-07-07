@@ -3,9 +3,9 @@
 
   <test name="Run on Chrome">
   <parameter name = "browser" value = "chrome"/>
-  <parameter name = "url" value = "https://www.jqueryscript.net/demo/CRUD-Data-Grid-Plugin-jQuery-Quickgrid/" />
+  <parameter name = "url" value = "http://blueimp.github.io/jQuery-File-Upload/" />
     <classes>
-      <class name="dataTable.DataTable01"/>
+      <class name="upload.Upload"/>
     </classes>	
   </test>
 

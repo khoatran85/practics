@@ -7,9 +7,9 @@
     <classes>
       <class name="dataTable.DataTable01">
         <methods>
+          <include name="DataTable_03"/>
           <include name="AfterClass"/>
           <include name="BeforeClass"/>
-          <include name="DataTable_02_deleteRecord"/>
         </methods>
       </class> <!-- dataTable.DataTable01 -->
     </classes>

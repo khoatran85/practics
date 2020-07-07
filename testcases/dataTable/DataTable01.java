@@ -1,6 +1,7 @@
 package dataTable;
 
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
@@ -10,6 +11,7 @@ import org.testng.annotations.Test;
 import commons.AbstractTest;
 import commons.PageGeneratorManager;
 import pageObject.DataTableObject;
+import pageUI.dataTableUI;
 
 public class DataTable01 extends AbstractTest{
 WebDriver driver;
@@ -22,7 +24,7 @@ DataTableObject dataTablePage;
 
 	}
 
-	@Test
+	//@Test
 	public void DataTable_01_submitRecord() {
 		dataTablePage.clickToNewRecordButton();
 		dataTablePage.sendKeyToTextbox("females", "Hanh");
@@ -35,12 +37,17 @@ DataTableObject dataTablePage;
 		Assert.assertTrue(dataTablePage.inputNewTextDisplay());
 	}
 	
-	@Test
+	//@Test
 	public void DataTable_02_deleteRecord() {
 		dataTablePage.clickToPageNumber("1");
 		dataTablePage.clickToDeleteRecord("Aruba");
 		Assert.assertFalse(dataTablePage.isRecordDeleted("Country", "Aruba"));
 		
+	}
+	@Test
+	public void DataTable_03() {
+		dataTablePage.openUrl(driver, "https://www.jqueryscript.net/demo/jQuery-Dynamic-Data-Grid-Plugin-appendGrid");
+		dataTablePage.sendkeysToTextbox("Company", "2", "gameloft");
 	}
 	
 	@AfterClass
