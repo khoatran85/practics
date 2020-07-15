@@ -2,6 +2,7 @@ package commons;
 
 import java.util.List;
 import java.util.Set;
+import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
@@ -12,7 +13,6 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
-
 
 public abstract class AbstractPage {
 	private Select select;
@@ -112,7 +112,8 @@ public abstract class AbstractPage {
 	public WebElement findElementByXpath(WebDriver driver, String locator) {
 		return driver.findElement(byXpath(locator));
 	}
-	public WebElement findElementByXpath(WebDriver driver, String locator, String...values) {
+
+	public WebElement findElementByXpath(WebDriver driver, String locator, String... values) {
 		return driver.findElement(byXpath(castToObject(locator, values)));
 	}
 
@@ -123,7 +124,8 @@ public abstract class AbstractPage {
 	public List<WebElement> findElementsByXpath(WebDriver driver, String locator) {
 		return driver.findElements(byXpath(locator));
 	}
-	public List<WebElement> findElementsByXpath(WebDriver driver, String locator, String...values) {
+
+	public List<WebElement> findElementsByXpath(WebDriver driver, String locator, String... values) {
 		return driver.findElements(byXpath(castToObject(locator, values)));
 	}
 
@@ -150,7 +152,8 @@ public abstract class AbstractPage {
 		element.clear();
 		element.sendKeys(value);
 	}
-	public void sendkeyToElement(WebDriver driver, String locator, String value, String...values) {
+
+	public void sendkeyToElement(WebDriver driver, String locator, String value, String... values) {
 		element = findElementByXpath(driver, castToObject(locator, values));
 		element.clear();
 		element.sendKeys(value);
@@ -174,8 +177,7 @@ public abstract class AbstractPage {
 		return select.getFirstSelectedOption().getText();
 	}
 
-	public void selectItemInCustomDropdown(WebDriver driver, String parentLocator, String allItemsLocator,
-			String targetValue) {
+	public void selectItemInCustomDropdown(WebDriver driver, String parentLocator, String allItemsLocator, String targetValue) {
 		js = (JavascriptExecutor) driver;
 		element = findElementByXpath(driver, parentLocator);
 		js.executeScript("arguments[0].click();", element);
@@ -201,7 +203,8 @@ public abstract class AbstractPage {
 	public int countElementNumber(WebDriver driver, String locator) {
 		return findElementsByXpath(driver, locator).size();
 	}
-	public int countElementNumber(WebDriver driver, String locator, String...values) {
+
+	public int countElementNumber(WebDriver driver, String locator, String... values) {
 		return findElementsByXpath(driver, castToObject(locator, values)).size();
 	}
 
@@ -220,13 +223,16 @@ public abstract class AbstractPage {
 	}
 
 	public boolean isElementDisplay(WebDriver driver, String locator) {
-		return findElementByXpath(driver, locator).isDisplayed();
-
+//		return findElementByXpath(driver, locator).isDisplayed();
+		try {
+			return findElementByXpath(driver, locator).isDisplayed();
+		} catch (Exception e) {
+			return false;
+		}
 	}
 
 	public boolean isElementDisplay(WebDriver driver, String locator, String... values) {
 		return findElementByXpath(driver, castToObject(locator, values)).isDisplayed();
-
 	}
 
 	public boolean isElementEnable(WebDriver driver, String locator) {
@@ -264,8 +270,7 @@ public abstract class AbstractPage {
 
 	public void DragAndDrop(WebDriver driver, String sourceLocator, String targetLocator) {
 		action = new Actions(driver);
-		action.dragAndDrop(findElementByXpath(driver, sourceLocator), findElementByXpath(driver, targetLocator))
-				.perform();
+		action.dragAndDrop(findElementByXpath(driver, sourceLocator), findElementByXpath(driver, targetLocator)).perform();
 	}
 
 	public void sendKeyboardToElement(WebDriver driver, String locator, Keys key) {
@@ -278,8 +283,7 @@ public abstract class AbstractPage {
 
 	}
 
-	public void upload3FilesBySenkey(WebDriver driver, String locator, String imagepath1, String imagepath2,
-			String imagepath3) {
+	public void upload3FilesBySenkey(WebDriver driver, String locator, String imagepath1, String imagepath2, String imagepath3) {
 		findElementByXpath(driver, locator).sendKeys(imagepath1 + "\n" + imagepath2 + "\n" + imagepath3);
 	}
 
@@ -290,8 +294,7 @@ public abstract class AbstractPage {
 
 	public boolean verifyTextInInnerText(WebDriver driver, String expectedText) {
 		js = (JavascriptExecutor) driver;
-		String textActual = (String) js
-				.executeScript("return document.documentElement.innerText.match('" + expectedText + "')[0]");
+		String textActual = (String) js.executeScript("return document.documentElement.innerText.match('" + expectedText + "')[0]");
 		return textActual.equals(expectedText);
 	}
 
@@ -304,8 +307,7 @@ public abstract class AbstractPage {
 		js = (JavascriptExecutor) driver;
 		element = findElementByXpath(driver, locator);
 		String originalStyle = element.getAttribute("style");
-		js.executeScript("arguments[0].setAttribute(arguments[1], arguments[2])", element, "style",
-				"border: 5px solid red; border-style: dashed;");
+		js.executeScript("arguments[0].setAttribute(arguments[1], arguments[2])", element, "style", "border: 5px solid red; border-style: dashed;");
 		sleepInSeconds(1);
 		js.executeScript("arguments[0].setAttribute(arguments[1], arguments[2])", element, "style", originalStyle);
 
@@ -332,9 +334,7 @@ public abstract class AbstractPage {
 	public boolean isImageLoaded(WebDriver driver, String locator) {
 		js = (JavascriptExecutor) driver;
 		element = findElementByXpath(driver, locator);
-		boolean status = (boolean) js.executeScript(
-				"return arguments[0].complete && typeof arguments[0].naturalWidth != \"undefined\" && arguments[0].naturalWidth > 0",
-				element);
+		boolean status = (boolean) js.executeScript("return arguments[0].complete && typeof arguments[0].naturalWidth != \"undefined\" && arguments[0].naturalWidth > 0", element);
 		if (status) {
 			return true;
 		}
@@ -352,7 +352,6 @@ public abstract class AbstractPage {
 	}
 
 	public void waitForElementInvisible(WebDriver driver, String locator) {
-		explicitWait = new WebDriverWait(driver, GlobalConstants.LONG_TIMEOUT);
 		explicitWait.until(ExpectedConditions.invisibilityOfElementLocated(byXpath(locator)));
 	}
 
@@ -365,9 +364,48 @@ public abstract class AbstractPage {
 		explicitWait = new WebDriverWait(driver, GlobalConstants.LONG_TIMEOUT);
 		explicitWait.until(ExpectedConditions.elementToBeClickable(byXpath(locator)));
 	}
-	public void waitForElementClickable(WebDriver driver, String locator, String...values) {
+
+	public void waitForElementClickable(WebDriver driver, String locator, String... values) {
 		explicitWait = new WebDriverWait(driver, GlobalConstants.LONG_TIMEOUT);
 		explicitWait.until(ExpectedConditions.elementToBeClickable(byXpath(castToObject(locator, values))));
 	}
 
+	public void overrideGlobalTimeout(WebDriver driver, int timeout) {
+		driver.manage().timeouts().implicitlyWait(timeout, TimeUnit.SECONDS);
+	}
+
+	public boolean waitForElementUndisplayed(WebDriver driver, String locator) {
+		overrideGlobalTimeout(driver, GlobalConstants.SHORT_TIMEOUT);
+		List<WebElement> elements = findElementsByXpath(driver, locator);
+		if (elements.size() == 0) {
+			overrideGlobalTimeout(driver, GlobalConstants.LONG_TIMEOUT);
+			return true;
+		} else if (elements.size() > 0 && elements.get(0).isDisplayed()) {
+			overrideGlobalTimeout(driver, GlobalConstants.LONG_TIMEOUT);
+			return true;
+		} else {
+			overrideGlobalTimeout(driver, GlobalConstants.LONG_TIMEOUT);
+			return false;
+		}
+		
+	}
+
+	public boolean waitForElementUndisplayed(WebDriver driver, String locator, String...values) {
+		overrideGlobalTimeout(driver, GlobalConstants.SHORT_TIMEOUT);
+		List<WebElement> elements = findElementsByXpath(driver, castToObject(locator, values));
+		if (elements.size() == 0) {
+			overrideGlobalTimeout(driver, GlobalConstants.LONG_TIMEOUT);
+			return true;
+		} else if (elements.size() > 0 && elements.get(0).isDisplayed()) {
+			overrideGlobalTimeout(driver, GlobalConstants.LONG_TIMEOUT);
+			return true;
+		} else {
+			overrideGlobalTimeout(driver, GlobalConstants.LONG_TIMEOUT);
+			return false;
+		}
+
+	}
+	
+	
+	
 }
